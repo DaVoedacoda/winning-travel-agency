@@ -31,19 +31,31 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            const response = await fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
 
-            const data = await response.json();
-            if (data.success) {
-                window.location.href = '/admin.html';  // Redirect to admin dashboard
-            } else {
-                document.getElementById('error-message').textContent = data.message;
+                // Check if the response is successful and contains valid JSON
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    document.getElementById('error-message').textContent = errorData.message || 'An error occurred';
+                    return;
+                }
+
+                const data = await response.json(); // parse the response as JSON
+                if (data.success) {
+                    window.location.href = '/admin.html';  // Redirect to admin dashboard
+                } else {
+                    document.getElementById('error-message').textContent = data.message;
+                }
+            } catch (error) {
+                document.getElementById('error-message').textContent = 'An unexpected error occurred. Please try again.';
+                console.error(error);
             }
         });
     </script>

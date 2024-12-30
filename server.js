@@ -50,7 +50,7 @@ app.post('/login', (req, res) => {
         const token = jwt.sign({ username }, secretKey, { expiresIn: '1h' });
         res.json({ success: true, token });
     } else {
-        res.json({ success: false, message: 'Invalid username or password' });
+        return res.json({ success: false, message: 'Invalid username or password' });
     }
 });
 
