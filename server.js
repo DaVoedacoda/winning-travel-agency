@@ -1,15 +1,27 @@
 const express = require('express');
 const fs = require('fs');
+const session = require('express-session'); // Add express-session for session management
 const emailjs = require('emailjs-com'); // Include the emailjs library
 const app = express();
 const PORT = 3000;
 
 // Middleware
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(__dirname)); // Serve static files directly from the root directory
+app.use(session({
+    secret: 'yourSecretKey', // Secret key for session
+    resave: false,
+    saveUninitialized: true
+}));
 
 const destinationsFile = './destinations.json';
 const bookingsFile = './bookings.json';
+
+// Dummy admin credentials (for demonstration purposes)
+const adminCredentials = {
+    username: 'admin', // Username for login
+    password: 'password123' // Password for login
+};
 
 // Load data from JSON file
 const loadData = (file) => {
@@ -30,11 +42,28 @@ const saveData = (file, data) => {
     fs.writeFileSync(file, JSON.stringify(data, null, 2));
 };
 
-// EmailJS configuration
-const emailjsServiceID = "YOUR_serviceID"; // Replace with your EmailJS service ID
-const emailjsTemplateID = "TEMPLATE_ID"; // Replace with your EmailJS template ID
-const emailjsUserID = "USER_ID"; // Replace with your EmailJS user ID
-emailjs.init(emailjsUserID);
+// Login route
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    if (username === adminCredentials.username && password === adminCredentials.password) {
+        req.session.isAuthenticated = true; // Set session variable to indicate logged in
+        res.json({ success: true });
+    } else {
+        res.json({ success: false, message: 'Invalid username or password' });
+    }
+});
+
+// Middleware to check authentication
+const checkAuth = (req, res, next) => {
+    if (!req.session.isAuthenticated) {
+        return res.status(401).json({ error: 'Unauthorized. Please log in.' });
+    }
+    next();
+};
+
+// Protect admin routes with authentication check
+app.use('/admin.html', checkAuth);
 
 // Get all destinations
 app.get('/api/destinations', (req, res) => {
@@ -155,7 +184,6 @@ app.post('/api/approve-booking/:id', (req, res) => {
             res.status(500).json({ error: 'Error sending the email. Please try again.' });
         });
 });
-
 
 // Reject a booking (delete it)
 app.delete('/api/booking/:id', (req, res) => {
