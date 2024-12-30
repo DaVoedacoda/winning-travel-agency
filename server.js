@@ -1,27 +1,15 @@
 const express = require('express');
 const fs = require('fs');
-const jwt = require('jsonwebtoken'); // Use JWT for authentication
-const cors = require('cors'); // Enable CORS
-const emailjs = require('emailjs-com'); // EmailJS for sending emails
+const emailjs = require('emailjs-com'); // Include the emailjs library
 const app = express();
 const PORT = 3000;
 
-// Secret key for JWT
-const secretKey = 'yourSecretKey';
-
 // Middleware
 app.use(express.json());
-app.use(cors()); // Enable CORS
-app.use(express.static(__dirname)); // Serve static files directly from the root directory
+app.use(express.static('public'));
 
 const destinationsFile = './destinations.json';
 const bookingsFile = './bookings.json';
-
-// Dummy admin credentials (for demonstration purposes)
-const adminCredentials = {
-    username: 'admin', // Username for login
-    password: 'password123' // Password for login
-};
 
 // Load data from JSON file
 const loadData = (file) => {
@@ -42,37 +30,11 @@ const saveData = (file, data) => {
     fs.writeFileSync(file, JSON.stringify(data, null, 2));
 };
 
-// Login route
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-
-    if (username === adminCredentials.username && password === adminCredentials.password) {
-        const token = jwt.sign({ username }, secretKey, { expiresIn: '1h' });
-        res.json({ success: true, token });
-    } else {
-        return res.json({ success: false, message: 'Invalid username or password' });
-    }
-});
-
-// Middleware to check authentication using JWT
-const verifyToken = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1]; // Assuming token is sent in the Authorization header
-
-    if (!token) {
-        return res.status(401).json({ error: 'Unauthorized. Please log in.' });
-    }
-
-    jwt.verify(token, secretKey, (err, decoded) => {
-        if (err) {
-            return res.status(401).json({ error: 'Invalid token.' });
-        }
-        req.user = decoded;
-        next();
-    });
-};
-
-// Protect admin routes with JWT authentication
-app.use('/admin.html', verifyToken);
+// EmailJS configuration
+const emailjsServiceID = "YOUR_serviceID"; // Replace with your EmailJS service ID
+const emailjsTemplateID = "TEMPLATE_ID"; // Replace with your EmailJS template ID
+const emailjsUserID = "USER_ID"; // Replace with your EmailJS user ID
+emailjs.init(emailjsUserID);
 
 // Get all destinations
 app.get('/api/destinations', (req, res) => {
@@ -193,6 +155,7 @@ app.post('/api/approve-booking/:id', (req, res) => {
             res.status(500).json({ error: 'Error sending the email. Please try again.' });
         });
 });
+
 
 // Reject a booking (delete it)
 app.delete('/api/booking/:id', (req, res) => {
