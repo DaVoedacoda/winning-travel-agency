@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Destination</title>
+    <link rel="stylesheet" href="styles/add-destination.css">
+</head>
+<body>
+    <h1>Add New Destination</h1>
+    <form id="destination-form">
+        <label for="name">Destination Name:</label>
+        <input type="text" id="name" name="name" required placeholder="Enter destination name" title="Enter the destination name.">
+
+        <label for="image">Image URL:</label>
+        <input type="url" id="image" name="image" required placeholder="Enter a valid image URL" title="Enter a valid URL for the image.">
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required placeholder="Enter a description" title="Describe the destination."></textarea>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" required placeholder="Enter the state" title="Enter the state where the destination is located.">
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required placeholder="Enter the country" title="Enter the country where the destination is located.">
+
+        <label for="hotel">Hotel or Lounge:</label>
+        <input type="text" id="hotel" name="hotel" required placeholder="Enter the hotel or lounge" title="Enter the hotel or lounge associated with the destination.">
+
+        <label for="places">Places to Explore:</label>
+        <textarea id="places" name="places" required placeholder="Enter places to explore" title="List the places to explore at the destination."></textarea>
+
+        <label for="link">Detail Page Link:</label>
+        <input type="text" id="link" name="link" required placeholder="e.g., beach-paradise" title="Enter a unique link identifier for the detail page.">
+
+        <!-- Cost Field -->
+        <label for="cost">Cost (in USD):</label>
+        <input type="number" id="cost" name="cost" required min="0" step="0.01" placeholder="e.g., 799" title="Enter the cost for this destination.">
+
+        <button type="submit">Add Destination</button>
+    </form>
+    <p id="response"></p>
+    <div id="loading" style="display: none;">Processing...</div>
+    
+    <script>
+        const form = document.getElementById('destination-form');
+        const loading = document.getElementById('loading');
+        const responseText = document.getElementById('response');
+    
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            const data = {
+                name: form.name.value.trim(),
+                image: form.image.value.trim(),
+                description: form.description.value.trim(),
+                state: form.state.value.trim(),
+                country: form.country.value.trim(),
+                hotel: form.hotel.value.trim(),
+                places: form.places.value.trim(),
+                link: form.link.value.trim(),
+                cost: parseFloat(form.cost.value.trim()),
+            };
+    
+            if (data.cost <= 0) {
+                responseText.innerText = 'Error: Cost must be a positive value.';
+                return;
+            }
+    
+            loading.style.display = 'block'; // Show loading indicator
+            responseText.innerText = ''; // Clear previous response
+    
+            try {
+                const response = await fetch('/api/destinations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+    
+                if (response.ok) {
+                    const result = await response.json();
+                    responseText.innerText = `Success: ${result.message}`;
+                    form.reset();
+                    setTimeout(() => {
+                        window.location.href = 'admin.html'; // Redirect to admin page
+                    }, 1500);
+                } else {
+                    const errorText = await response.text();
+                    responseText.innerText = `Error: ${errorText}`;
+                }
+            } catch (err) {
+                responseText.innerText = `Error: ${err.message}`;
+            } finally {
+                loading.style.display = 'none'; // Hide loading indicator
+            }
+        });
+    </script>
+    
+</body>
+</html>

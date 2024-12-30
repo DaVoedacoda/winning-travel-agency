@@ -1,0 +1,14 @@
+[
+  {
+      "name": "Beach Paradise",
+      "image": "img/beach2.webp",
+      "description": "Relax on sunny beaches starting at $499.",
+      "link": "beach-paradise.html"
+  },
+  {
+      "name": "Mountain Adventure",
+      "image": "img/mountain1.avif",
+      "description": "Experience thrilling adventures starting at $599.",
+      "link": "mountain-adventure.html"
+  }
+]

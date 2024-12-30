@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" href="styles/confirm.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">Booking Confirmation</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="package.html">Packages</a></li>
+            <li><a href="booking.html">Book Another Trip</a></li>
+        </ul>
+        <div id="menu-btn">&#9776;</div> <!-- Hamburger Menu Button -->
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="package.html">Packages</a></li>
+            <li><a href="booking.html">Book Another Trip</a></li>
+        </ul>
+    </div>
+
+    <!-- Confirmation Header -->
+    <header>
+        <h1>Thank You, <span id="booker-name"></span>!</h1>
+        <p>Your booking has been successfully submitted for review.</p>
+
+        <!-- Booking Details -->
+        <h2>Booking Details</h2>
+        <div id="booking-details">
+            <p><strong>Full Name:</strong> <span id="full-name"></span></p>
+            <p><strong>Email:</strong> <span id="email"></span></p>
+            <p><strong>Phone:</strong> <span id="phone"></span></p>
+            <p><strong>Visa Type:</strong> <span id="visa-type"></span></p>
+            <p><strong>Destination:</strong> <span id="destination"></span></p>
+            <p><strong>Travel Date:</strong> <span id="travel-date"></span></p>
+            <p><strong>Number of Guests:</strong> <span id="guests"></span></p>
+            <p><strong>Cost:</strong> $<span id="cost"></span></p>
+        </div>
+
+        <p>Please keep an eye on your email for updates regarding your booking. Once approved, you will receive a payment link to confirm your spot.</p>
+
+        <button class="ok">Back to homepage</button>
+    </header>
+
+    <script>
+        // Extract query parameters from the URL
+        const params = new URLSearchParams(window.location.search);
+
+        // Get booking details from the query string
+        const fullName = params.get('full_name');
+        const email = params.get('email');
+        const phone = params.get('phone');
+        const visaType = params.get('visa_type');
+        const destination = params.get('destination');
+        const travelDate = params.get('travel_date');
+        const guests = params.get('guests');
+        const cost = params.get('cost');
+
+        // Populate the confirmation details dynamically
+        document.getElementById('booker-name').textContent = fullName || 'Guest';
+        document.getElementById('full-name').textContent = fullName || 'N/A';
+        document.getElementById('email').textContent = email || 'N/A';
+        document.getElementById('phone').textContent = phone || 'N/A';
+        document.getElementById('visa-type').textContent = visaType || 'N/A';
+        document.getElementById('destination').textContent = destination || 'N/A';
+        document.getElementById('travel-date').textContent = travelDate || 'N/A';
+        document.getElementById('guests').textContent = guests || 'N/A';
+        document.getElementById('cost').textContent = cost || '0.00';
+
+        // Toggle sidebar visibility
+        const menuBtn = document.getElementById('menu-btn');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

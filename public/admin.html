@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Admin Dashboard</div>
+        <ul class="nav-links">
+            <li><a href="add-destination.html">Add Destination</a></li>
+        </ul>
+        <div id="menu-btn">&#9776;</div> <!-- Hamburger Icon -->
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="package.html">Packages</a></li>
+            <li><a href="admin.html">Admin Dashboard</a></li>
+        </ul>
+    </div>
+
+    <header>
+        <h1>Manage Destinations</h1>
+        <button id="load-destinations-btn">Load Destinations</button>
+        <h2>Pending Bookings</h2>
+        <div id="pending-bookings"></div>
+        <h2>Destinations</h2>
+        <div id="destination-list"></div>
+    </header>
+
+    <script>
+        // Function to load destinations and display them
+        async function loadDestinations() {
+            const response = await fetch('/api/destinations');
+            const destinations = await response.json();
+            const destinationListDiv = document.getElementById('destination-list');
+            destinationListDiv.innerHTML = ''; // Clear the current list
+
+            destinations.forEach(destination => {
+                const destinationDiv = document.createElement('div');
+                destinationDiv.classList.add('destination');
+                destinationDiv.innerHTML = `
+                    <h3>${destination.name}</h3>
+                    <img src="${destination.image}" alt="${destination.name}" width="200">
+                    <p>${destination.description}</p>
+                    <p><strong>Cost:</strong> $${destination.cost}</p>
+                    <button onclick="deleteDestination('${destination.link}')">Delete</button>
+                `;
+                destinationListDiv.appendChild(destinationDiv);
+            });
+        }
+
+        // Function to delete a destination
+        async function deleteDestination(link) {
+            const response = await fetch(`/api/destination/${link}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                alert('Destination deleted successfully!');
+                loadDestinations(); // Reload the destination list
+            } else {
+                alert('Failed to delete destination.');
+            }
+        }
+
+        // Function to load pending bookings
+        async function loadPendingBookings() {
+            const response = await fetch('/api/bookings');
+            const bookings = await response.json();
+            const pendingBookingsDiv = document.getElementById('pending-bookings');
+            pendingBookingsDiv.innerHTML = ''; // Clear the current list
+
+            bookings.filter(booking => booking.status === 'pending').forEach(booking => {
+                const bookingDiv = document.createElement('div');
+                bookingDiv.classList.add('booking');
+                bookingDiv.innerHTML = `
+                    <h3>${booking.full_name}</h3>
+                    <p><strong>Phone:</strong> ${booking.phone}</p>
+                    <p><strong>Email:</strong> ${booking.email}</p>
+                    <p><strong>Destination:</strong> ${booking.destination}</p>
+                    <p><strong>Cost:</strong> $${booking.cost}</p>
+                    <p><strong>Guests:</strong> ${booking.guests}</p>
+                    <p><strong>Visa Type:</strong> ${booking.visa_type}</p>
+                    <p><strong>Message:</strong> ${booking.message}</p>
+                    <p><strong>Travel Date:</strong> ${booking.travel_date}</p>
+                    <button onclick="approveBooking(${booking.id})">Approve</button>
+                    <button onclick="rejectBooking(${booking.id})">Reject</button>
+                `;
+                pendingBookingsDiv.appendChild(bookingDiv);
+            });
+        }
+
+        // Approve a booking
+        async function approveBooking(id) {
+            const response = await fetch(`/api/approve-booking/${id}`, {
+                method: 'POST',
+            });
+
+            if (response.ok) {
+                alert('Booking approved!');
+                loadPendingBookings(); // Reload the pending bookings list
+            } else {
+                alert('Failed to approve booking.');
+            }
+        }
+
+        // Reject a booking
+        async function rejectBooking(id) {
+            const response = await fetch(`/api/booking/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                alert('Booking rejected!');
+                loadPendingBookings(); // Reload the pending bookings list
+            } else {
+                alert('Failed to reject booking.');
+            }
+        }
+
+        // Toggle sidebar visibility when menu button is clicked
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Existing JavaScript code for managing destinations and bookings...
+
+        // Load initial data
+        loadDestinations();
+        loadPendingBookings();
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="payment.css">
+</head>
+<body>
+    <div id="payment-container">
+        <h1>Payment Details</h1>
+        <form id="payment-form" class="hidden">
+            <div class="form-row">
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" name="destination" readonly>
+            </div>
+
+            <div class="form-row">
+                <label for="cost">Cost</label>
+                <input type="text" id="cost" name="cost" readonly>
+            </div>
+
+            <div class="form-row">
+                <label for="payment-method">Payment Method</label>
+                <select id="payment-method" name="payment_method" required>
+                    <option value="">Select Payment Method</option>
+                    <option value="transfer">Bank Transfer</option>
+                    <option value="debit">Debit Card</option>
+                    <option value="credit">Credit Card</option>
+                </select>
+            </div>
+
+            <div id="transfer-details" class="hidden">
+                <p><strong>Bank Name:</strong> Travel Agency Bank</p>
+                <p><strong>Account Number:</strong> 1234567890</p>
+                <p><strong>IFSC Code:</strong> TAB0001234</p>
+            </div>
+
+            <div id="card-details" class="hidden">
+                <div class="form-row">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" name="card_number" placeholder="Enter your card number" required>
+                </div>
+                <div class="form-row">
+                    <label for="expiry">Expiry Date</label>
+                    <input type="month" id="expiry" name="expiry" required>
+                </div>
+                <div class="form-row">
+                    <label for="cvv">CVV</label>
+                    <input type="password" id="cvv" name="cvv" maxlength="3" placeholder="Enter CVV" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <button type="submit">Pay Now</button>
+            </div>
+        </form>
+        <p id="status-message" class="hidden"></p>
+    </div>
+
+    <script>
+        // Retrieve destination and cost from query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const destination = urlParams.get('destination');
+        const cost = urlParams.get('cost');
+        const paymentKey = `payment_${destination}`; // Unique key for each destination
+
+        const destinationInput = document.getElementById('destination');
+        const costInput = document.getElementById('cost');
+        const paymentForm = document.getElementById('payment-form');
+        const statusMessage = document.getElementById('status-message');
+        const paymentMethod = document.getElementById('payment-method');
+        const transferDetails = document.getElementById('transfer-details');
+        const cardDetails = document.getElementById('card-details');
+
+        // Populate the form with destination and cost
+        destinationInput.value = destination || 'No destination provided';
+        costInput.value = cost ? `$${cost}` : 'N/A';
+
+        // Check if payment has already been made
+        const paymentStatus = localStorage.getItem(paymentKey);
+
+        if (paymentStatus === 'paid') {
+            statusMessage.textContent = `Payment for ${destination} has already been received.`;
+            statusMessage.classList.remove('hidden');
+        } else {
+            paymentForm.classList.remove('hidden');
+        }
+
+        // Show payment details based on method
+        paymentMethod.addEventListener('change', () => {
+            if (paymentMethod.value === 'transfer') {
+                transferDetails.classList.remove('hidden');
+                cardDetails.classList.add('hidden');
+            } else if (paymentMethod.value === 'debit' || paymentMethod.value === 'credit') {
+                transferDetails.classList.add('hidden');
+                cardDetails.classList.remove('hidden');
+            } else {
+                transferDetails.classList.add('hidden');
+                cardDetails.classList.add('hidden');
+            }
+        });
+
+        // Handle payment form submission
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (paymentMethod.value === 'transfer') {
+                alert('Please complete the transfer to the provided account details.');
+            } else {
+                alert(`Payment of $${cost} has been processed successfully!`);
+            }
+
+            // Mark as paid in localStorage
+            localStorage.setItem(paymentKey, 'paid');
+
+            // Show the already paid message
+            paymentForm.classList.add('hidden');
+            statusMessage.textContent = `Payment for ${destination} has been received.`;
+            statusMessage.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>

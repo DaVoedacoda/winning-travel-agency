@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Travel Agency</title>
+    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="../font/css/all.min.css">
+</head>
+<body>
+     <!-- Navigation Bar -->
+     <nav>
+        <div class="logo">Travel Agency</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" class="active">About Us</a></li>
+            <li><a href="package.html">Packages</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+        <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" class="active">About Us</a></li>
+            <li><a href="package.html">Packages</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <!-- About Header Section -->
+    <header class="about-header">
+        <h1>About Us</h1>
+        <p>Discover who we are and what drives us to create unforgettable travel experiences.</p>
+    </header>
+
+    <!-- Our Story Section -->
+    <section class="our-story">
+        <h2>Our Story</h2>
+        <p>Founded with a passion for exploration and adventure, our travel agency has been dedicated to crafting remarkable journeys for travelers around the globe. Our goal is to inspire and empower our clients to experience the world like never before.</p>
+    </section>
+
+    <!-- Mission and Vision Section -->
+    <section class="mission-vision">
+        <div class="mission">
+            <h3>Our Mission</h3>
+            <p>To provide personalized, high-quality travel experiences that exceed expectations and create lasting memories.</p>
+        </div>
+        <div class="vision">
+            <h3>Our Vision</h3>
+            <p>To be the most trusted and innovative travel agency, connecting people to their dream destinations effortlessly.</p>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <h2>Meet Our Team</h2>
+        <div class="team-members">
+            <div class="member">
+                <img src="img/user1.jpg" alt="Team Member">
+                <h4>Jane Doe</h4>
+                <p>Founder & CEO</p>
+            </div>
+            <div class="member">
+                <img src="img/user2.jpg" alt="Team Member">
+                <h4>John Smith</h4>
+                <p>Travel Consultant</p>
+            </div>
+            <div class="member">
+                <img src="img/user3.jpg" alt="Team Member">
+                <h4>Emily Johnson</h4>
+                <p>Marketing Manager</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <h2>Ready to Plan Your Next Adventure?</h2>
+        <a href="packages.html" class="cta-button">Explore Packages</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Travel Agency. All rights reserved.</p>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+        </ul>
+
+        <div class="icons">
+            <ul>
+              <a href="https://www.facebook.com/profile.php?id=100071683401487"><i class="fab fa-facebook"></i></a>
+              <a href="https://x.com/DaveMcthunder?t=vmwObb_L-VbgvMO_2jj1nQ&s=09"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.instagram.com/dark_5kin_boy/profilecard/?igsh=MTll23lnajd4cTgyaQ=="><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linedin.com/in/david-temitope-3b0444344?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin"></i></a>
+            </ul>
+          </div>
+          <p>Made with <i class="fas fa-heart"></i> by DaVoe Codes</p>
+    </footer>
+
+    <script>
+       const hamburger = document.querySelector('.hamburger');
+        const sidebar = document.querySelector('.sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Los Vegas",
+    "image": "https://media.istockphoto.com/id/1355164094/photo/welcome-to-las-vegas-sign.jpg?s=2048x2048&w=is&k=20&c=hRzZtXcsEfzxbxse8bRwDMFo8f6L7nGwrZnWaTkKY0w=",
+    "description": "Las Vegas is the ultimate vacation destination, blending luxury, entertainment, and adventure. Known for its dazzling lights, iconic casinos, and world-class resorts, the city offers endless excitement. Enjoy thrilling shows, fine dining by celebrity chefs, and vibrant nightlife on the famous Strip. Shop at high-end boutiques, relax in lavish spas, or take a gondola ride at the Venetian. For nature lovers, the Grand Canyon and Red Rock Canyon are just a short drive away. Whether you seek glamour, adventure, or relaxation, Las Vegas promises unforgettable memories. It’s the perfect place to escape and indulge. Plan your dream vacation today!",
+    "state": "Neveda",
+    "country": "The United State",
+    "hotel": "The Venetian Resort",
+    "places": "Bellagio Fountains\nA mesmerizing water show featuring music and lights in front of the Bellagio Hotel.\n\nFremont Street Experience\nA vibrant pedestrian mall with live music, light shows, and a unique zip line.\n\nRed Rock Canyon\nA natural escape just outside the city for hiking, rock climbing, and scenic views.\n\nThe Neon Museum\nA collection of historic Las Vegas neon signs, showcasing the city’s vintage charm.",
+    "link": "Experience the magic of Cirque du Soleil, an entertainment spectacle that combines acrobatics, dance, and storytelling. With multiple themed shows in Las Vegas, such as \"O\" at the Bellagio or Mystère at Treasure Island, you'll be captivated by their creativity and awe-inspiring performances. Perfect for all ages!",
+    "cost": 2499.99
+  },
+  {
+    "name": "Abuja",
+    "image": "https://media.istockphoto.com/id/1398350577/photo/abuja-nigeria-landscape-at-sunset.jpg?s=612x612&w=0&k=20&c=g-qPDTEjTY5DrechI292nMt7BXeaOjGG3pFS08ewGl0=",
+    "description": "Abuja is the capital city of Nigeria, offering a blend of modernity and culture. Its stunning architecture, vibrant nightlife, and natural beauty make it a prime destination for a perfect vacation. You can visit the Aso Rock, a majestic monolith offering panoramic views, or the National Mosque, one of the largest mosques in Africa. The Millennium Park is perfect for relaxation, while the Jabi Lake provides serene moments of leisure. Abuja also boasts high-end shopping malls and cultural sites, offering both adventure and comfort for any traveler.",
+    "state": "Federal Capital Territory",
+    "country": "Nigeria",
+    "hotel": "Royal Vintage",
+    "places": "Aso Rock, National Mosque, Millennium Park, Jabi Lake, National Children’s Park and Zoo",
+    "link": "abuja",
+    "cost": 500
+  },
+  {
+    "name": "National City",
+    "image": "https://media.istockphoto.com/id/524472365/photo/skyscrapers-of-san-diego-skyline-waterfront-and-harbor-ca.jpg?s=612x612&w=0&k=20&c=6UxoL6hHpgCB0wRzkIRWGAPEi-Ap7y1zTcFMu0frSVA=",
+    "description": "National City offers a charming blend of cultural diversity and coastal beauty. Just minutes from downtown San Diego, it’s an ideal base for exploring the best of Southern California. Enjoy a stroll along the scenic San Diego Bay, or visit the lively Sweetwater Summit Regional Park for hiking and nature walks. The nearby historic Old Town San Diego offers a peek into California's past, while shopping and dining are in abundance at the Plaza Bonita Mall. Whether you’re looking to explore or simply relax by the water, National City is an excellent getaway.",
+    "state": "California",
+    "country": "USA",
+    "hotel": "Best Western Plus Marina Gateway Hotel",
+    "places": "San Diego Bay, Sweetwater Summit Regional Park, Old Town San Diego, Plaza Bonita Mall, Chula Vista Nature Center",
+    "link": "nationalcity",
+    "cost": 699
+  },
+  {
+    "name": "SmallVille",
+    "image": "https://media.istockphoto.com/id/2155595937/photo/iloilo-city-philippines-aerial-of-the-smallville-and-newer-commercial-districts-of-iloilo.jpg?s=612x612&w=0&k=20&c=ejMgTvvRZjF-fUPRb0E0fJpUneYcRJ629VZgI1El2v4=",
+    "description": "Smallville is a charming, picturesque town that embodies the heart of American Midwest living. Famous for being the fictional hometown of Superman, Smallville offers a peaceful atmosphere with a welcoming community vibe. Visitors can enjoy local attractions such as the Smallville Historical Museum, showcasing the town’s rich heritage, or take a scenic drive through the lush Kansas countryside. Perfect for those looking for a serene retreat, Smallville is ideal for nature lovers, with nearby parks and trails perfect for hiking, biking, and exploring the tranquil beauty of rural America.",
+    "state": "Kansas",
+    "country": "USA",
+    "hotel": "Smallville Inn (fictional reference)",
+    "places": "Smallville Historical Museum, nearby parks and trails, local diners and shops, scenic drives across Kansas countryside",
+    "link": "smallville",
+    "cost": 3550
+  },
+  {
+    "name": "Lagos",
+    "image": "https://media.istockphoto.com/id/1325357871/photo/drone-view-of-major-roads-and-traffic-in-victoria-island-lagos.jpg?s=612x612&w=0&k=20&c=LTyltCXYktCsNptgl2xvIf00S-PwvNsIYUngXv9Lprw=",
+    "description": "Lagos, the bustling metropolis of Nigeria, is a vibrant mix of modernity, culture, and history, perfect for a dynamic vacation. Its stunning beaches like Tarkwa Bay and Elegushi Beach offer an escape from the city buzz. The Nike Art Gallery provides a rich cultural experience, showcasing Nigeria’s art and heritage. For shopping, head to Lekki Market, while the National Museum of Nigeria offers insights into the country's past. Lagos is also famous for its lively nightlife, with a variety of bars and clubs. It’s a place that promises excitement, culture, and relaxation.",
+    "state": "Lagos",
+    "country": "Nigeria",
+    "hotel": "Eko Hotel & Suites",
+    "places": "Tarkwa Bay, Elegushi Beach, Nike Art Gallery, Lekki Market, National Museum of Nigeria, Lekki Conservation Centre",
+    "link": "lagos",
+    "cost": 700
+  },
+  {
+    "name": "Rome",
+    "image": "https://media.istockphoto.com/id/2150168689/photo/panoramic-view-of-colosseum-is-one-of-main-travel-attraction-of-rome-italy.jpg?s=612x612&w=0&k=20&c=fV05Adn7hmsnxeEn76dR7vSTi972atTQyXkoYUthgU4=",
+    "description": "Rome, the Eternal City, offers an unforgettable journey through time, with ancient ruins, iconic landmarks, and vibrant culture. Explore the majestic Colosseum, where gladiators once battled, and marvel at the awe-inspiring Roman Forum, the heart of the ancient city. The Vatican City, home to St. Peter's Basilica and the Sistine Chapel, is a must-see for art and history enthusiasts. Wander through the charming cobblestone streets, discover hidden piazzas, and enjoy delicious Italian cuisine. From historical wonders to modern vibrancy, Rome is the ultimate destination for travelers seeking both adventure and relaxation.",
+    "state": "Lazio",
+    "country": "Italy",
+    "hotel": "Hotel Artemide",
+    "places": "Colosseum, Roman Forum, Vatican City, St. Peter's Basilica, Sistine Chapel, Trevi Fountain, Pantheon",
+    "link": "rome",
+    "cost": 999.99
+  },
+  {
+    "name": "San Fiero",
+    "image": "https://media.istockphoto.com/id/510439143/photo/parintins.jpg?s=612x612&w=0&k=20&c=7Yp_ACGP0SOgQJM7shbLgOcRMEdbSs-6HK5_DltrGJg=",
+    "description": "San Fiero, a fictional city inspired by the best of urban living and coastal charm, offers an exciting mix of beaches, history, and entertainment. A city that’s alive with culture, San Fiero is perfect for those seeking both adventure and relaxation. Explore its sandy beaches and enjoy water sports, or visit its historic districts for a taste of local heritage. With trendy shopping districts, bustling nightlife, and a rich arts scene, San Fiero is ideal for travelers who want to experience both the calm of the coast and the thrill of city life.",
+    "state": "California",
+    "country": "USA",
+    "hotel": "San Fiero Beach Resort",
+    "places": "San Fiero Beach, historic districts, waterfront parks, arts and culture scene, shopping districts, lively nightlife",
+    "link": "sanfiero",
+    "cost": 458.99
+  },
+  {
+    "name": "Shanghai",
+    "image": "https://media.istockphoto.com/id/601908650/photo/shanghai-bund-skyline-panorama.jpg?s=612x612&w=0&k=20&c=xO1mv5hM_b-E6PbpyymMX7_K4_-F_84yDfPFnakQvgI=",
+    "description": "Shanghai is a dazzling blend of modernity and tradition, offering something for every type of traveler. Its futuristic skyline, dominated by the iconic Oriental Pearl Tower and Shanghai Tower, contrasts with the historic charm of the Bund, where colonial architecture lines the Huangpu River. For a taste of local culture, explore the Yuyuan Garden and the vibrant alleys of the French Concession. Shanghai is also famous for its world-class shopping at Nanjing Road and its dynamic arts scene. With a mix of cutting-edge technology, historic sites, and rich cuisine, Shanghai promises an unforgettable experience.",
+    "state": "Shanghai",
+    "country": "China",
+    "hotel": "The Peninsula Shanghai",
+    "places": "The Bund, Oriental Pearl Tower, Shanghai Tower, Yuyuan Garden, Nanjing Road, French Concession, Shanghai Museum.",
+    "link": "shanghai",
+    "cost": 1200
+  },
+  {
+    "name": "South Africa",
+    "image": "https://media.istockphoto.com/id/970157462/photo/johannesburg-city-panorama-sunflare-with-the-tower.jpg?s=612x612&w=0&k=20&c=kJNR4t7Bo5Xp5m963YgoqeSqrcmqWL_-fPgyQhsHBKE=",
+    "description": "Limpopo is a province in South Africa that offers a rich blend of wildlife, cultural heritage, and natural beauty. Known for its diverse landscapes, it’s home to iconic safari destinations like the Kruger National Park, where visitors can see the Big Five in their natural habitat. The province also features beautiful wetlands and rivers, making it a haven for birdwatchers. Limpopo’s vibrant culture is reflected in its traditional villages and historical sites. Whether you're exploring nature reserves, experiencing local traditions, or enjoying wildlife adventures, Limpopo is a perfect destination for outdoor enthusiasts and cultural explorers.",
+    "state": "Limpopo",
+    "country": "South Africa",
+    "hotel": "Kapama River Lodge",
+    "places": "Kruger National Park, Waterberg Mountains, Mapungubwe National Park, Modimolle Nature Reserve, Bela-Bela Hot Springs, Makapansgat Cave",
+    "link": "southafrica",
+    "cost": 800
+  },
+  {
+    "name": "Berlin",
+    "image": "https://media.istockphoto.com/id/1366542300/photo/floodlit-brandenburg-gate-in-berlin-symbol-of-germany.jpg?s=1024x1024&w=is&k=20&c=gI3NRhUG6RbNEvX5QBEgY_IezSOs6nQ1AdxZVVmk_pc=",
+    "description": "Berlin, the vibrant capital of Germany, is a city where history meets innovation. Rich in cultural heritage, it offers landmarks like the Brandenburg Gate, the Berlin Wall Memorial, and the historic Reichstag building. Explore world-class museums on Museum Island or enjoy the city’s eclectic art and music scene. Stroll through the lush Tiergarten park or dive into Berlin's dynamic nightlife. From charming neighborhoods like Kreuzberg to high-end shopping in Kurfürstendamm, Berlin combines old-world charm with modern energy, making it a must-visit for history buffs, art lovers, and adventurers alike.",
+    "state": "Berlin",
+    "country": "Germany",
+    "hotel": "Hotel Adlon Kempinski",
+    "places": "Brandenburg Gate, Berlin Wall Memorial, Museum Island, Reichstag Building, East Side Gallery, Tiergarten Park, Checkpoint Charlie Museum, Potsdamer Platz.",
+    "link": "berlin",
+    "cost": 900
+  }
+]

@@ -1,0 +1,257 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(45deg, #0077cc, #ff6f61);
+  color: #333;
+  padding-top: 80px; /* Space for fixed nav */
+  margin: 0;
+}
+
+header {
+  background: url('../img/plane2.avif') no-repeat center center/cover;
+  color: #fff;
+  text-align: center;
+  padding: 100px 20px;
+  position: relative;
+}
+
+.header-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+header p {
+  font-size: 1.2em;
+}
+
+/* Sidebar for Mobile */
+.nav-sidebar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 250px;
+  height: 100%;
+  background: #0077cc;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: left 0.3s ease;
+}
+
+.nav-sidebar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+.nav-sidebar.active {
+  left: 0;
+}
+
+/* Destinations Section */
+.destinations-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 destinations per row */
+  gap: 15px;
+  padding: 20px;
+}
+
+.destination {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  width: 100%;
+  height: 300px; /* Height for cards */
+}
+
+.destination:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Image Container */
+.destination-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.destination-image {
+  height: 55%; /* Image takes up 55% of the card's height */
+  overflow: hidden;
+  background: #ddd;
+}
+
+.destination-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Details Section */
+.destination-details {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f7f7f7; /* Subtle background for details */
+  border-top: 1px solid #ddd; /* Light border between image and details */
+}
+
+.destination-details h3 {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.destination-details p {
+  font-size: 0.85em;
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limits description to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.destination-details .view-more {
+  display: inline-block;
+  padding: 8px 15px;
+  background: #ff6f61;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 0.85em;
+  text-align: center;
+}
+
+.destination-details .view-more:hover {
+  background: #333;
+  transition: background 0.3s ease;
+}
+
+/* Grid Responsiveness */
+@media (max-width: 1024px) {
+  .destinations-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 destinations per row for tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .destinations-container {
+    grid-template-columns: repeat(1, 1fr); /* 1 destination per row on small screens */
+    gap: 10px;
+  }
+
+  .destination {
+    height: 250px; /* Slightly smaller height for mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .destinations-container {
+    grid-template-columns: repeat(1, 1fr); /* 1 destination per row on ultra-small screens */
+    gap: 5px;
+  }
+
+  .destination {
+    height: 220px; /* More compact for small screens */
+  }
+
+  .destination-details h3, .destination-details p {
+    font-size: 0.75em;
+  }
+}
+
+/* Navigation Bar */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #0077cc;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 15px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 10px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.nav-links a:hover {
+  background: #ff6f61;
+  color: #fff;
+  border-radius: 5px;
+}
+
+/* Hide the second nav link (Packages) on large screens */
+.nav-links li:nth-child(2) {
+  display: none;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger div {
+  background: #fff;
+  height: 3px;
+  margin: 4px 0;
+  width: 25px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  /* Show the second nav link (Packages) on smaller screens */
+  .nav-links li:nth-child(2) {
+    display: inline;
+  }
+
+  /* Display hamburger menu */
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none; /* Hide nav links on smaller screens */
+  }
+}

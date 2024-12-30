@@ -1,0 +1,137 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(45deg, #0077cc, #ff6f61);
+    color: #333;
+    padding: 0;
+    margin: 0;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 2em;
+    margin: 20px 0;
+  }
+  
+  /* Sidebar and Menu Button */
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 200px;
+    height: 100%;
+    background: #0077cc;
+    color: #fff;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+  
+  #sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  #sidebar li {
+    margin: 20px 0;
+  }
+  
+  #sidebar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    display: block;
+  }
+  
+  #menu-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #fff;
+    z-index: 1001;
+  }
+  
+  #menu-btn:hover {
+    color: #ff6f61;
+  }
+  
+  /* Form Styles */
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  form label {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  form input,
+  form select,
+  form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  form textarea {
+    resize: none;
+    height: 80px;
+  }
+  
+  form button {
+    background: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  form button:hover {
+    background: #333;
+  }
+  
+  /* Loading Spinner */
+  #loading {
+    text-align: center;
+    font-size: 1.2em;
+    color: #fff;
+    margin-top: 10px;
+  }
+  
+  /* Responsive Sidebar */
+  #sidebar.active {
+    left: 0;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    form {
+      max-width: 90%;
+    }
+  
+    h1 {
+      font-size: 1.5em;
+    }
+  
+    #menu-btn {
+      font-size: 1.2em;
+    }
+  }
+  

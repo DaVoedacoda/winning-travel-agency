@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Details</title>
+    <link rel="stylesheet" href="styles/details.css">
+</head>
+<body>
+    <div id="loading" style="display: none;">Loading...</div>
+    <div id="destination-details"></div>
+
+    <script>
+        async function fetchDestinationDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const link = urlParams.get('link');
+            
+            if (!link) {
+                document.getElementById('destination-details').innerHTML = "<p>Destination link is missing.</p>";
+                return;
+            }
+
+            try {
+                // Show loading indicator
+                document.getElementById('loading').style.display = 'block';
+
+                const response = await fetch(`/api/destination/${link}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const destination = await response.json();
+                const detailsDiv = document.getElementById('destination-details');
+                
+                // Hide loading indicator
+                document.getElementById('loading').style.display = 'none';
+                
+                // Display destination details
+                detailsDiv.innerHTML = `
+                    <h1>${destination.name}</h1>
+                    <img src="${destination.image}" alt="${destination.name}" style="max-width: 100%; height: auto;">
+                    <p>${destination.description || 'Description not available.'}</p>
+                    <p><strong>State:</strong> ${destination.state || 'State not available.'}</p>
+                    <p><strong>Country:</strong> ${destination.country || 'Country not available.'}</p>
+                    <p><strong>Hotel/Lounge:</strong> ${destination.hotel || 'Hotel/Lounge not available.'}</p>
+                    <p><strong>Places to Explore:</strong> ${destination.places || 'Places not available.'}</p>
+                    <p><strong>Cost:</strong> $${destination.cost || 'N/A'}</p>
+                    <!-- Book Now Button -->
+                    <a href="booking.html?destination=${encodeURIComponent(destination.name)}&cost=${encodeURIComponent(destination.cost)}" class="book-now-btn">Book Now</a>
+                `;
+            } catch (error) {
+                console.error('Error fetching destination details:', error);
+                document.getElementById('destination-details').innerHTML = "<p>Failed to load destination details. Please try again later.</p>";
+            }
+        }
+
+        // Fetch and display destination details on page load
+        fetchDestinationDetails();
+    </script>
+</body>
+</html>

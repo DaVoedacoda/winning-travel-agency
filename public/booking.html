@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <link rel="stylesheet" href="styles/booking.css">
+</head>
+<body>
+    <!-- Mobile Sidebar -->
+    <div id="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="package.html">Packages</a></li>
+            <li><a href="../contact.html">Contact us</a></li>
+        </ul>
+    </div>
+    
+    <div id="menu-btn">&#9776;</div> <!-- Hamburger Menu Button -->
+
+    <h1>Book Your Travel</h1>
+    <form id="booking-form">
+        <label for="full_name">Full Name:</label>
+        <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+        <label for="visa_type">Visa Type:</label>
+        <select id="visa_type" name="visa_type" required>
+            <option value="" disabled selected>Select Visa Type</option>
+            <option value="Tourist">Tourist</option>
+            <option value="Business">Business</option>
+        </select>
+
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" name="destination" readonly required>
+
+        <label for="travel_date">Travel Date:</label>
+        <input type="date" id="travel_date" name="travel_date" required>
+
+        <label for="guests">Number of Guests:</label>
+        <input type="number" id="guests" name="guests" min="1" placeholder="Enter number of guests" required>
+
+        <label for="message">Additional Requests:</label>
+        <textarea id="message" name="message" placeholder="Enter any additional requests (optional)"></textarea>
+
+        <!-- Hidden cost field -->
+        <input type="hidden" id="cost" name="cost">
+
+        <button type="submit" id="submit-button">Book Now</button>
+    </form>
+
+    <div id="loading" style="display: none;">Processing...</div>
+
+    <script>
+        const form = document.getElementById('booking-form');
+        const loading = document.getElementById('loading');
+        const submitButton = document.getElementById('submit-button');
+
+        // Pre-fill the destination and cost from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const destination = urlParams.get('destination');
+        const cost = urlParams.get('cost');
+
+        if (destination) {
+            document.getElementById('destination').value = destination;
+        }
+
+        if (cost) {
+            document.getElementById('cost').value = cost;
+        }
+
+        // Handle form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent page refresh
+
+            const formData = {
+                full_name: document.getElementById('full_name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                visa_type: document.getElementById('visa_type').value,
+                destination: document.getElementById('destination').value.trim(),
+                travel_date: document.getElementById('travel_date').value,
+                guests: parseInt(document.getElementById('guests').value, 10),
+                cost: parseFloat(document.getElementById('cost').value),
+                message: document.getElementById('message').value.trim(),
+            };
+
+            // Show loading spinner
+            loading.style.display = 'block';
+            submitButton.disabled = true;
+
+            try {
+                const response = await fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+
+                if (response.ok) {
+                    alert('Booking submitted successfully!');
+                    form.reset(); // Reset form
+                    window.location.href = `confirm.html?full_name=${formData.full_name}&email=${formData.email}&phone=${formData.phone}&visa_type=${formData.visa_type}&destination=${formData.destination}&travel_date=${formData.travel_date}&guests=${formData.guests}&cost=${formData.cost}`;
+
+                } else {
+                    alert('Failed to submit booking. Please try again.');
+                    console.error('Server response:', await response.text());
+                }
+            } catch (error) {
+                console.error('Error submitting booking:', error);
+                alert('An error occurred. Please try again later.');
+            } finally {
+                // Hide loading spinner and re-enable submit button
+                loading.style.display = 'none';
+                submitButton.disabled = false;
+            }
+        });
+
+        const menuBtn = document.getElementById('menu-btn');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

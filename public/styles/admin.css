@@ -1,0 +1,216 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background-color: #0077cc;
+  padding: 15px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav .nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+}
+
+nav .nav-links li {
+  margin-left: 20px;
+}
+
+nav .nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+/* Hamburger Menu for Mobile */
+#menu-btn {
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+}
+
+/* Sidebar for Mobile */
+#sidebar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #0077cc;
+  padding-top: 20px;
+  z-index: 1000;
+  transition: 0.3s;
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+#sidebar ul li {
+  padding: 10px;
+  text-align: center;
+}
+
+#sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Show Sidebar when Hamburger Menu is Clicked */
+#sidebar.active {
+  display: block;
+}
+
+header {
+  padding: 20px;
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #0077cc;
+}
+
+/* Destination Cards */
+.destination {
+  background: linear-gradient(135deg, #0077cc, #ff6f61);
+  border-radius: 8px;
+  margin: 20px 0;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.destination:hover {
+  transform: translateY(-5px);
+}
+
+.destination h3 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.destination img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.destination p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+button {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #ff3b2a;
+}
+
+/* Pending Bookings */
+.booking {
+  background: white;
+  border-radius: 8px;
+  margin: 20px 0;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.booking h3 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.booking p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.booking button {
+  background-color: #0077cc;
+}
+
+.booking button:hover {
+  background-color: #005f99;
+}
+
+#load-destinations-btn {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#load-destinations-btn:hover {
+  background-color: #005f99;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Move the nav links to a sidebar */
+  nav .nav-links {
+      display: none;
+  }
+
+  #menu-btn {
+      display: block;
+  }
+
+  header {
+      margin-left: 0;
+  }
+
+  /* Sidebar styles */
+  #sidebar.active {
+      display: block;
+  }
+
+  #sidebar ul li {
+      padding: 15px;
+  }
+
+  /* Destination Cards */
+  .destination {
+      margin: 10px 0;
+      padding: 15px;
+  }
+
+  .booking {
+      margin: 10px 0;
+      padding: 15px;
+  }
+}

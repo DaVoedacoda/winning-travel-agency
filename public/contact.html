@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Travel Agency</title>
+    <link rel="stylesheet" href="styles/contact.css">
+    <link rel="stylesheet" href="../font/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">Ever Winning Travel Agency</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="package.html">Packages</a></li>
+            <li><a href="contact.html" class="active">Contact Us</a></li>
+        </ul>
+        <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="contact-hero">
+        <h1>Get in Touch</h1>
+        <p>Let us help you plan your next adventure! Reach out to us for inquiries or assistance.</p>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact-container">
+        <div class="contact-form">
+            <h2>Send Us a Message</h2>
+            <form action="#" method="post">
+                <div class="form-row">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-row">
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-row">
+                    <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+        <div class="contact-info">
+            <h2>Contact Details</h2>
+            <p><strong>Phone:</strong> (123) 456-7890</p>
+            <p><strong>Email:</strong> info@everwinningtravelagency.com</p>
+            <p><strong>Address:</strong> 123 3rd Avenue, Abuja City, Nigeria</p>
+            <div class="map">
+                <iframe src="https://maps.google.com/maps?q=123%20Adventure%20St,%20Travel%20City&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Travel Agency. All rights reserved.</p>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+        </ul>
+
+        <div class="icons">
+            <ul>
+              <a href="https://www.facebook.com/profile.php?id=100071683401487"><i class="fab fa-facebook"></i></a>
+              <a href="https://x.com/DaveMcthunder?t=vmwObb_L-VbgvMO_2jj1nQ&s=09"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.instagram.com/dark_5kin_boy/profilecard/?igsh=MTll23lnajd4cTgyaQ=="><i class="fab fa-instagram"></i></a>
+              <a href=""><i class="fab fa-linkedin"></i></a>
+            </ul>
+          </div>
+          <p>Made with <i class="fas fa-heart"></i> by DaVoe Codes</p>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const sidebar = document.querySelector('.sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
