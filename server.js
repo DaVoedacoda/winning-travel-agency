@@ -1,18 +1,18 @@
 const express = require('express');
 const fs = require('fs');
-const session = require('express-session'); // Add express-session for session management
-const emailjs = require('emailjs-com'); // Include the emailjs library
+const jwt = require('jsonwebtoken'); // Use JWT for authentication
+const cors = require('cors'); // Enable CORS
+const emailjs = require('emailjs-com'); // EmailJS for sending emails
 const app = express();
 const PORT = 3000;
 
+// Secret key for JWT
+const secretKey = 'yourSecretKey';
+
 // Middleware
 app.use(express.json());
+app.use(cors()); // Enable CORS
 app.use(express.static(__dirname)); // Serve static files directly from the root directory
-app.use(session({
-    secret: 'yourSecretKey', // Secret key for session
-    resave: false,
-    saveUninitialized: true
-}));
 
 const destinationsFile = './destinations.json';
 const bookingsFile = './bookings.json';
@@ -47,23 +47,32 @@ app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
     if (username === adminCredentials.username && password === adminCredentials.password) {
-        req.session.isAuthenticated = true; // Set session variable to indicate logged in
-        res.json({ success: true });
+        const token = jwt.sign({ username }, secretKey, { expiresIn: '1h' });
+        res.json({ success: true, token });
     } else {
         res.json({ success: false, message: 'Invalid username or password' });
     }
 });
 
-// Middleware to check authentication
-const checkAuth = (req, res, next) => {
-    if (!req.session.isAuthenticated) {
+// Middleware to check authentication using JWT
+const verifyToken = (req, res, next) => {
+    const token = req.headers['authorization']?.split(' ')[1]; // Assuming token is sent in the Authorization header
+
+    if (!token) {
         return res.status(401).json({ error: 'Unauthorized. Please log in.' });
     }
-    next();
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ error: 'Invalid token.' });
+        }
+        req.user = decoded;
+        next();
+    });
 };
 
-// Protect admin routes with authentication check
-app.use('/admin.html', checkAuth);
+// Protect admin routes with JWT authentication
+app.use('/admin.html', verifyToken);
 
 // Get all destinations
 app.get('/api/destinations', (req, res) => {
