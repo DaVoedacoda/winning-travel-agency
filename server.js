@@ -1,56 +1,61 @@
 const express = require('express');
+const cors = require('cors');
 const fs = require('fs');
-const emailjs = require('emailjs-com'); // Include the emailjs library
+const axios = require('axios'); // Use axios for HTTP requests
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('./')); // Serve static files from the root directory
 
 const destinationsFile = './destinations.json';
 const bookingsFile = './bookings.json';
 
-// Load data from JSON file
+// Helper functions to load and save data
 const loadData = (file) => {
     if (fs.existsSync(file)) {
         try {
             const data = fs.readFileSync(file, 'utf-8');
-            return data ? JSON.parse(data) : []; // Return empty array if data is empty
+            return data ? JSON.parse(data) : [];
         } catch (err) {
-            console.error(`Error parsing JSON from ${file}:`, err);
-            return []; // Return empty array in case of malformed JSON
+            console.error(`Error reading ${file}:`, err);
+            return [];
         }
     }
     return [];
 };
 
-// Save data to JSON file
 const saveData = (file, data) => {
-    fs.writeFileSync(file, JSON.stringify(data, null, 2));
+    try {
+        fs.writeFileSync(file, JSON.stringify(data, null, 2));
+    } catch (err) {
+        console.error(`Error writing to ${file}:`, err);
+    }
 };
 
 // EmailJS configuration
 const emailjsServiceID = "YOUR_serviceID"; // Replace with your EmailJS service ID
 const emailjsTemplateID = "TEMPLATE_ID"; // Replace with your EmailJS template ID
 const emailjsUserID = "USER_ID"; // Replace with your EmailJS user ID
-emailjs.init(emailjsUserID);
 
+// Routes
 // Get all destinations
 app.get('/api/destinations', (req, res) => {
     res.json(loadData(destinationsFile));
 });
 
-// Get a specific destination by link
+// Get a specific destination
 app.get('/api/destination/:link', (req, res) => {
-    const link = req.params.link;
+    const { link } = req.params;
     const destinations = loadData(destinationsFile);
     const destination = destinations.find(d => d.link === link);
 
     if (destination) {
         res.json(destination);
     } else {
-        res.status(404).send('Destination not found');
+        res.status(404).json({ error: 'Destination not found' });
     }
 });
 
@@ -58,26 +63,23 @@ app.get('/api/destination/:link', (req, res) => {
 app.post('/api/destinations', (req, res) => {
     const { name, image, description, state, country, hotel, places, link, cost } = req.body;
 
-    // Validate required fields
     if (!name || !image || !description || !state || !country || !hotel || !places || !link || cost === undefined) {
-        return res.status(400).json({ error: 'All fields are required.' });
+        return res.status(400).json({ error: 'All fields are required' });
     }
 
-    // Validate cost
     if (isNaN(cost) || cost <= 0) {
-        return res.status(400).json({ error: 'Cost must be a positive number.' });
+        return res.status(400).json({ error: 'Cost must be a positive number' });
     }
 
     const destinations = loadData(destinationsFile);
-    const newDestination = { name, image, description, state, country, hotel, places, link, cost };
-    destinations.push(newDestination);
+    destinations.push({ name, image, description, state, country, hotel, places, link, cost });
     saveData(destinationsFile, destinations);
     res.json({ message: 'Destination added successfully!' });
 });
 
-// Delete a destination by link
+// Delete a destination
 app.delete('/api/destination/:link', (req, res) => {
-    const link = req.params.link;
+    const { link } = req.params;
     let destinations = loadData(destinationsFile);
     destinations = destinations.filter(d => d.link !== link);
     saveData(destinationsFile, destinations);
@@ -87,8 +89,7 @@ app.delete('/api/destination/:link', (req, res) => {
 // Get all bookings
 app.get('/api/bookings', (req, res) => {
     const bookings = loadData(bookingsFile);
-    const pendingBookings = bookings.filter(booking => booking.status === 'pending');
-    res.json(pendingBookings);
+    res.json(bookings.filter(b => b.status === 'pending'));
 });
 
 // Add a new booking
@@ -96,11 +97,11 @@ app.post('/api/bookings', (req, res) => {
     const { full_name, email, destination, cost, travel_date, guests, message } = req.body;
 
     if (!full_name || !email || !destination || !travel_date || !guests) {
-        return res.status(400).json({ error: 'All fields except "message" are required.' });
+        return res.status(400).json({ error: 'Required fields are missing' });
     }
 
     const bookings = loadData(bookingsFile);
-    const newBooking = {
+    bookings.push({
         id: bookings.length + 1,
         full_name,
         email,
@@ -109,31 +110,26 @@ app.post('/api/bookings', (req, res) => {
         travel_date,
         guests,
         message,
-        status: 'pending'
-    };
-    bookings.push(newBooking);
+        status: 'pending',
+    });
     saveData(bookingsFile, bookings);
-    res.json({ message: 'Booking submitted successfully!' });
+    res.json({ message: 'Booking added successfully!' });
 });
 
-// Approve a booking and send confirmation email to the booker
-app.post('/api/approve-booking/:id', (req, res) => {
+// Approve a booking and send confirmation email
+app.post('/api/approve-booking/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
-
     const bookings = loadData(bookingsFile);
-    const bookingIndex = bookings.findIndex(booking => booking.id === id);
+    const booking = bookings.find(b => b.id === id);
 
-    if (bookingIndex === -1) {
-        return res.status(404).json({ error: 'Booking not found.' });
+    if (!booking) {
+        return res.status(404).json({ error: 'Booking not found' });
     }
 
-    const booking = bookings[bookingIndex];
-
-    // Update booking status to 'approved'
-    bookings[bookingIndex].status = 'approved';
+    booking.status = 'approved';
     saveData(bookingsFile, bookings);
 
-    // Send email confirmation to the booker using EmailJS
+    // Prepare email data
     const emailData = {
         booker_name: booking.full_name,
         email: booking.email,
@@ -142,29 +138,34 @@ app.post('/api/approve-booking/:id', (req, res) => {
         travel_date: booking.travel_date,
         number_of_guests: booking.guests,
         message: booking.message,
-        payment_link: `https://yourwebsite.com/payment.html?destination=${encodeURIComponent(booking.destination)}&cost=${booking.cost}`
     };
 
-    // Send email via EmailJS
-    emailjs.send(emailjsServiceID, emailjsTemplateID, emailData)
-        .then(() => {
-            res.json({ message: 'Booking approved and email sent to the booker.' });
-        })
-        .catch(error => {
-            console.error('Error sending email:', error);
-            res.status(500).json({ error: 'Error sending the email. Please try again.' });
-        });
+    try {
+        // Send email via EmailJS REST API
+        const emailResponse = await axios.post(
+            'https://api.emailjs.com/api/v1.0/email/send',
+            {
+                service_id: emailjsServiceID,
+                template_id: emailjsTemplateID,
+                user_id: emailjsUserID,
+                template_params: emailData,
+            }
+        );
+        res.json({ message: 'Booking approved and email sent', emailResponse: emailResponse.data });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ error: 'Error sending confirmation email' });
+    }
 });
 
-
-// Reject a booking (delete it)
+// Delete a booking
 app.delete('/api/booking/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
     let bookings = loadData(bookingsFile);
     bookings = bookings.filter(b => b.id !== id);
     saveData(bookingsFile, bookings);
-    res.json({ message: 'Booking rejected and deleted.' });
+    res.json({ message: 'Booking deleted successfully' });
 });
 
 // Start server
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
